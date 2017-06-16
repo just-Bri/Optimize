@@ -3,13 +3,13 @@
     <head>
         <meta charset="UTF-8">
         <title>StockPHOTOGRAPHY</title>
-        <script src="js/jquery.js"></script>
-        <script src="js/fastclick.js"></script>
+        <script src="js/jquery.js"></script> // Move scripts to end of body. Use onLoaded method.
+        <script src="js/fastclick.js"></script> // Use CDNs where available.
         <script src="js/foundation.js"></script>
         <script src="js/foundation.equalizer.js"></script>
         <script src="js/foundation.reveal.js"></script>
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/foundation.css">
+        <link rel="stylesheet" href="css/normalize.css"> // Convert to .less or .scss?
+        <link rel="stylesheet" href="css/foundation.css"> // Use a single minified file?
         <link rel="stylesheet" href="css/arvo.css">
         <link rel="stylesheet" href="css/ubuntu.css">
         <link rel="stylesheet" href="css/basics.css">
@@ -34,7 +34,7 @@
         <section class="hero" >
             <div class="info">
                 <span class="attribution">Photo by <b>Werner Bechtelar</b></span>
-                <img src="img/avatars/avatar1.jpg" alt="Photo"  class="avatar">
+                <img src="img/avatars/avatar1.jpg" alt="Photo"  class="avatar"> // Scale down images if possible
             </div>
         </section>
         <section class="image-grid">
