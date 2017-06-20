@@ -17,7 +17,14 @@
   },
   "homepage": "https://github.com/reifnotreef/Optimize#readme",
   "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-babel": "^6.0.0",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-cssmin": "^2.2.0",
-    "grunt-contrib-uglify": "^3.0.1"
+    "grunt-contrib-imagemin": "^1.0.1",
+    "grunt-contrib-uglify": "^3.0.1",
+    "grunt-image-resize": "^1.0.0",
+    "grunt-minify-html": "^3.0.0"
   }
 }
