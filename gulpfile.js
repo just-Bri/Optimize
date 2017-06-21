@@ -20,7 +20,7 @@ gulp.task('concatjs', function() {
       'src/js/fastclick.js'
     ], { base: './' }))
     .pipe(concat('main.js'))
-    .pipe(gulp.dest('app/js/'));
+    .pipe(gulp.dest('src/js/'));
 });
 gulp.task('concatcss', function() {
   return gulp.src('src/css/*.css')
