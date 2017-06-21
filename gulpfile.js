@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var rename = require('gulp-rename');
+var order = require('gulp-order');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var pump = require('pump');
@@ -10,6 +11,13 @@ var gulpsequence = require('gulp-sequence');
 // Concat
 gulp.task('concatjs', function() {
   return gulp.src('src/js/*.js')
+    .pipe(order([
+      'src/js/jquery.js',
+      'src/js/foundation.js',
+      'src/js.foundation.reveal.js',
+      'src/js/foundation.equalizer.js',
+      'src/js/fastclick.js'
+    ]))
     .pipe(concat('concat.js'))
     .pipe(gulp.dest('src/js/'));
 });
