@@ -1,11 +1,11 @@
 var gulp = require('gulp');
+var rename = require('gulp-rename');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var pump = require('pump');
 var cleanCSS = require('gulp-clean-css');
-
-gulp.task('default', function() {
-});
+var imagemin = require('gulp-imagemin');
+var gulpsequence = require('gulp-sequence');
 
 // Concat
 gulp.task('concatjs', function() {
@@ -32,5 +32,18 @@ gulp.task('minifyjs', function (cb) {
 gulp.task('minifycss', function() {
   return gulp.src('src/css/concat.css')
     .pipe(cleanCSS({compatibility: 'ie8'}))
+    .pipe(rename('minify.css'))
     .pipe(gulp.dest('app/css/'));
 });
+
+// Image optimizer
+gulp.task('minifyimg', function() {
+    gulp.src('src/img/**/*')
+        .pipe(imagemin({
+          optimizationLevel: 4
+        }))
+        .pipe(gulp.dest('app/img/'));
+});
+
+// Build
+gulp.task('default', gulpsequence('concatjs', 'concatcss', 'minifyjs', 'minifycss', 'minifyimg'));
