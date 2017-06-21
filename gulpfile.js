@@ -7,6 +7,7 @@ var pump = require('pump');
 var cleanCSS = require('gulp-clean-css');
 var imagemin = require('gulp-imagemin');
 var gulpsequence = require('gulp-sequence');
+var htmlmin = require('gulp-htmlmin');
 
 // Concat
 gulp.task('concatjs', function() {
@@ -17,8 +18,8 @@ gulp.task('concatjs', function() {
       'src/js.foundation.reveal.js',
       'src/js/foundation.equalizer.js',
       'src/js/fastclick.js'
-    ]))
-    .pipe(concat('concat.js'))
+    ], { base: './' }))
+    .pipe(concat('main.js'))
     .pipe(gulp.dest('src/js/'));
 });
 gulp.task('concatcss', function() {
@@ -28,9 +29,15 @@ gulp.task('concatcss', function() {
 });
 
 // Minify
+gulp.task('minifyhtml', function() {
+  return gulp.src('src/*.html')
+    .pipe(htmlmin({collapseWhitespace: true}))
+    .pipe(gulp.dest('app/'));
+});
+
 gulp.task('minifyjs', function (cb) {
   pump([
-        gulp.src('src/js/concat.js'),
+        gulp.src('src/js/main.js'),
         uglify(),
         gulp.dest('app/js/')
     ],
@@ -54,4 +61,4 @@ gulp.task('minifyimg', function() {
 });
 
 // Build
-gulp.task('default', gulpsequence('concatjs', 'concatcss', 'minifyjs', 'minifycss', 'minifyimg'));
+gulp.task('default', gulpsequence('minifyhtml', 'concatjs', 'concatcss', 'minifyjs', 'minifycss', 'minifyimg'));

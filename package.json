@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/reifnotreef/Optimize#readme",
   "devDependencies": {
+    "gulp-htmlmin": "^3.0.0",
     "gulp-order": "^1.1.1"
   }
 }
