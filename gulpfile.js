@@ -55,7 +55,8 @@ gulp.task('minifycss', function() {
 gulp.task('minifyimg', function() {
     gulp.src('src/img/**/*')
         .pipe(imagemin({
-          optimizationLevel: 4
+          optimizationLevel: 7,
+          verbose: true
         }))
         .pipe(gulp.dest('app/img/'));
 });
