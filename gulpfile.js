@@ -2,18 +2,13 @@
 
 var gulp = require('gulp');
 var concat = require('gulp-concat');
-
 var pump = require('pump');
 var cleanCSS = require('gulp-clean-css');
 var gulpsequence = require('gulp-sequence');
 var htmlmin = require('gulp-htmlmin');
-
-// JS
 var sourcemaps = require('gulp-sourcemaps');
 var babel = require("gulp-babel");
 var uglify = require('gulp-uglify');
-
-// image stuff 
 var image = require('gulp-image');
 var pngquant = require('imagemin-pngquant');
 var jpgoptim = require('imagemin-jpegoptim');
