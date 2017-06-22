@@ -5,9 +5,16 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var pump = require('pump');
 var cleanCSS = require('gulp-clean-css');
-var imagemin = require('gulp-imagemin');
 var gulpsequence = require('gulp-sequence');
 var htmlmin = require('gulp-htmlmin');
+var watch = require('gulp-watch');
+// image stuff 
+var image = require('gulp-image');
+
+var imagemin = require('gulp-imagemin');
+var pngquant = require('imagemin-pngquant');
+var jpgoptim = require('imagemin-jpegoptim');
+
 
 // Concat
 gulp.task('concatjs', function() {
@@ -52,13 +59,39 @@ gulp.task('minifycss', function() {
 });
 
 // Image optimizer
-gulp.task('minifyimg', function() {
-    gulp.src('src/img/**/*')
-        .pipe(imagemin({
-          optimizationLevel: 7,
-          verbose: true
+gulp.task('minifyimg', function () {
+  return  gulp.src('src/img/**/*')
+      .pipe(imagemin({
+            verbose: true,
+            progressive: true,
+            use: [pngquant(), jpgoptim()]
         }))
-        .pipe(gulp.dest('app/img/'));
+      .pipe(gulp.dest('app/img/'));
+});
+
+gulp.task('image', function () {
+  gulp.src('src/img/**/*')
+    .pipe(image({
+      pngquant: true,
+      optipng: false,
+      zopflipng: true,
+      jpegRecompress: false,
+      jpegoptim: true,
+      mozjpeg: true,
+      guetzli: false,
+      gifsicle: true,
+      svgo: true,
+      concurrent: 10
+    }))
+    .pipe(gulp.dest('app/img/'));
+});
+
+// Watch
+gulp.task('watch', function () {
+  gulp.watch('src/*.html', ['minifyhtml']);
+  gulp.watch('src/css/*.css', ['concatcss', 'minifycss']);
+  gulp.watch('src/js/**/*.js', ['concatjs', 'minifyjs']);
+  gulp.watch('src/img/**/*', ['minifyimg']);
 });
 
 // Build
