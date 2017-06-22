@@ -60,16 +60,6 @@ gulp.task('minifycss', function() {
 
 // Image optimizer
 gulp.task('minifyimg', function () {
-  return  gulp.src('src/img/**/*')
-      .pipe(imagemin({
-            verbose: true,
-            progressive: true,
-            use: [pngquant(), jpgoptim()]
-        }))
-      .pipe(gulp.dest('app/img/'));
-});
-
-gulp.task('image', function () {
   gulp.src('src/img/**/*')
     .pipe(image({
       pngquant: true,
