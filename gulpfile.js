@@ -1,19 +1,38 @@
+'use strict';
+
 var gulp = require('gulp');
 var rename = require('gulp-rename');
 var order = require('gulp-order');
 var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
+
 var pump = require('pump');
 var cleanCSS = require('gulp-clean-css');
 var gulpsequence = require('gulp-sequence');
 var htmlmin = require('gulp-htmlmin');
-var watch = require('gulp-watch');
+
+// JS
+var sourcemaps = require('gulp-sourcemaps');
+var babel = require("gulp-babel");
+var uglify = require('gulp-uglify');
+var jshint = require('gulp-jshint');
+
 // image stuff 
 var image = require('gulp-image');
-
-var imagemin = require('gulp-imagemin');
 var pngquant = require('imagemin-pngquant');
 var jpgoptim = require('imagemin-jpegoptim');
+
+// Scripts
+gulp.task('scripts', function (cb) {
+  pump([
+        gulp.src('src/js/*'),
+        babel(),
+        uglify(),
+        concat('main.js'),
+        gulp.dest('app/js'),
+    ],
+    cb
+  );
+});
 
 
 // Concat
@@ -24,7 +43,8 @@ gulp.task('concatjs', function() {
       'src/js/foundation.js',
       'src/js.foundation.reveal.js',
       'src/js/foundation.equalizer.js',
-      'src/js/fastclick.js'
+      'src/js/fastclick.js',
+      'src/js/scripts.js'
     ], { base: './' }))
     .pipe(concat('main.js'))
     .pipe(gulp.dest('src/js/'));
@@ -54,7 +74,7 @@ gulp.task('minifyjs', function (cb) {
 gulp.task('minifycss', function() {
   return gulp.src('src/css/concat.css')
     .pipe(cleanCSS({compatibility: 'ie8'}))
-    .pipe(rename('minify.css'))
+    .pipe(rename('main.css'))
     .pipe(gulp.dest('app/css/'));
 });
 
@@ -74,14 +94,6 @@ gulp.task('minifyimg', function () {
       concurrent: 10
     }))
     .pipe(gulp.dest('app/img/'));
-});
-
-// Watch
-gulp.task('watch', function () {
-  gulp.watch('src/*.html', ['minifyhtml']);
-  gulp.watch('src/css/*.css', ['concatcss', 'minifycss']);
-  gulp.watch('src/js/**/*.js', ['concatjs', 'minifyjs']);
-  gulp.watch('src/img/**/*', ['minifyimg']);
 });
 
 // Build

@@ -18,14 +18,19 @@
   "homepage": "https://github.com/reifnotreef/Optimize#readme",
   "devDependencies": {
     "gm": "^1.23.0",
+    "gulp-babel": "^6.1.2",
     "gulp-cache": "^0.4.6",
     "gulp-htmlmin": "^3.0.0",
     "gulp-image": "^2.9.0",
     "gulp-image-resize": "^0.12.0",
+    "gulp-jshint": "^2.0.4",
+    "gulp-notify": "^3.0.0",
     "gulp-order": "^1.1.1",
     "gulp-size": "^2.1.0",
+    "gulp-sourcemaps": "^2.6.0",
     "gulp-watch": "^4.3.11",
-    "imagemin-jpegtran": "^5.0.2"
+    "imagemin-jpegtran": "^5.0.2",
+    "jshint": "^2.9.4"
   },
   "dependencies": {
     "imagemin-jpegoptim": "^5.1.0",
