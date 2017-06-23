@@ -13,7 +13,7 @@ var image = require('gulp-image');
 var pngquant = require('imagemin-pngquant');
 var jpgoptim = require('imagemin-jpegoptim');
 
-// Scripts
+// Smash Js
 gulp.task('smashJs', function (cb) {
   pump([
         gulp.src('src/js/*'),
@@ -27,7 +27,7 @@ gulp.task('smashJs', function (cb) {
   );
 });
 
-// Concat/Min Css
+// Smash Css
 gulp.task('smashCss', function() {
   return gulp.src('src/css/*.css')
     .pipe(concat('main.css'))
@@ -35,14 +35,14 @@ gulp.task('smashCss', function() {
     .pipe(gulp.dest('app/css/'));
 });
 
-// HTML
+// Smash HTML
 gulp.task('smashhtml', function() {
   return gulp.src('src/*.html')
     .pipe(htmlmin({collapseWhitespace: true}))
     .pipe(gulp.dest('app/'));
 });
 
-// Image optimizer
+// Smash images
 gulp.task('smashimg', function () {
   gulp.src('src/img/**/*')
     .pipe(image({
