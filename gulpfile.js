@@ -13,9 +13,7 @@ var image = require('gulp-image');
 var pngquant = require('imagemin-pngquant');
 var jpgoptim = require('imagemin-jpegoptim');
 var clean = require('gulp-clean');
-
-var spritesmith  = require('gulp.spritesmith')
-var stylus = require('gulp-stylus');
+var spritesmith = require('gulp.spritesmith');
 
 // Smash Js
 gulp.task('smashJs', function (cb) {
@@ -71,33 +69,13 @@ gulp.task('smashimg', function () {
 gulp.task('default', gulpsequence('smashhtml', 'smashJs', 'smashCss', 'smashimg'));
 
 // New sprite stuff
-gulp.task('stylus', function() {
-    return gulp.src('./src/assets/styles/style.styl')
-        .pipe(stylus({
-            compress: true
-        }))
-        .pipe(gulp.dest('./built/assets/styles'))
-});
-
-gulp.task('sprite', function() {
-    var spriteData = 
-        gulp.src('./src/assets/images/sprite/*.*') // путь, откуда берем картинки для спрайта
-            .pipe(spritesmith({
-                imgName: 'sprite.png',
-                cssName: 'sprite.styl',
-                cssFormat: 'stylus',
-                algorithm: 'binary-tree',
-                cssTemplate: 'stylus.template.mustache',
-                cssVarMap: function(sprite) {
-                    sprite.name = 's-' + sprite.name
-                }
-            }));
-
-    spriteData.img.pipe(gulp.dest('./built/assets/images/')); // путь, куда сохраняем картинку
-    spriteData.css.pipe(gulp.dest('./src/assets/styles/')); // путь, куда сохраняем стили
-});
-
-gulp.task('watch', function() {
-    gulp.watch('./src/assets/styles/**/*.styl', ['stylus']);
-    gulp.watch('./src/assets/images/sprite/*.*', ['sprite']);
+gulp.task('sprite', function () {
+    var spriteData = gulp.src('img/avatars/*.png')
+        .pipe(spritesmith({
+            /* this whole image path is used in css background declarations */
+            imgName: '../assets/img/sprite.png',
+            cssName: 'sprite.css'
+        }));
+    spriteData.img.pipe(gulp.dest('img'));
+    spriteData.css.pipe(gulp.dest('css'));
 });
