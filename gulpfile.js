@@ -12,11 +12,13 @@ var uglify = require('gulp-uglify');
 var image = require('gulp-image');
 var pngquant = require('imagemin-pngquant');
 var jpgoptim = require('imagemin-jpegoptim');
+var clean = require('gulp-clean');
 
 // Smash Js
 gulp.task('smashJs', function (cb) {
   pump([
-        gulp.src('src/js/*'),
+        gulp.src(['src/js/jquery.js', 'src/js/foundation.js', 'src/js/foundation.equalizer.js', 'src/js/foundation.reveal.js','src/js/fastclick.js', 'src/js/scripts.js']),
+        concat('main.js'),
         sourcemaps.init(),
         babel(),
         uglify(),
@@ -25,6 +27,8 @@ gulp.task('smashJs', function (cb) {
     ],
     cb
   );
+  // return gulp.src('src/js/main.js', {read: false})
+  //       .pipe(clean());
 });
 
 // Smash Css

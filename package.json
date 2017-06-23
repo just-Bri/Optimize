@@ -20,6 +20,7 @@
     "gm": "^1.23.0",
     "gulp-babel": "^6.1.2",
     "gulp-cache": "^0.4.6",
+    "gulp-clean": "^0.3.2",
     "gulp-htmlmin": "^3.0.0",
     "gulp-image": "^2.9.0",
     "gulp-image-resize": "^0.12.0",
