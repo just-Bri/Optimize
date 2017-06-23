@@ -14,8 +14,15 @@ var pngquant = require('imagemin-pngquant');
 var jpgoptim = require('imagemin-jpegoptim');
 var clean = require('gulp-clean');
 
+// Smash HTML
+gulp.task('smash-html', function() {
+  return gulp.src('src/*.html')
+    .pipe(htmlmin({collapseWhitespace: true}))
+    .pipe(gulp.dest('app/'));
+});
+
 // Smash Js
-gulp.task('smashjs', function (cb) {
+gulp.task('smash-js', function (cb) {
   pump([
         gulp.src(['src/js/jquery.js', 'src/js/foundation.js', 'src/js/foundation.equalizer.js', 'src/js/foundation.reveal.js','src/js/fastclick.js', 'src/js/scripts.js']),
         concat('main.js'),
@@ -32,22 +39,15 @@ gulp.task('smashjs', function (cb) {
 });
 
 // Smash Css
-gulp.task('smashcss', function() {
+gulp.task('smash-css', function() {
   return gulp.src('src/css/*.css')
     .pipe(concat('main.css'))
     .pipe(cleanCSS({compatibility: 'ie8'}))
     .pipe(gulp.dest('app/css/'));
 });
 
-// Smash HTML
-gulp.task('smashhtml', function() {
-  return gulp.src('src/*.html')
-    .pipe(htmlmin({collapseWhitespace: true}))
-    .pipe(gulp.dest('app/'));
-});
-
 // Smash images
-gulp.task('smashimg', function () {
+gulp.task('smash-img', function () {
   gulp.src('src/img/**/*')
     .pipe(image({
       pngquant: true,
@@ -55,14 +55,15 @@ gulp.task('smashimg', function () {
       zopflipng: true,
       jpegRecompress: false,
       jpegoptim: true,
+      jpegtran: true,
       mozjpeg: true,
       guetzli: false,
       gifsicle: true,
       svgo: true,
       concurrent: 10
     }))
-    .pipe(gulp.dest('src/img/'));
+    .pipe(gulp.dest('src/img/tmp/'));
 });
 
 // Build
-gulp.task('default', gulpsequence('smashhtml', 'smashjs', 'smashcss', 'smashimg'));
+gulp.task('default', gulpsequence('smash-html', 'smash-js', 'smash-css', 'smash-img'));
