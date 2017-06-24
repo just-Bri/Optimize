@@ -13,6 +13,8 @@ var image = require('gulp-image');
 var pngquant = require('imagemin-pngquant');
 var jpgoptim = require('imagemin-jpegoptim');
 var clean = require('gulp-clean');
+var imageResize = require('gulp-image-resize');
+var rename = require("gulp-rename");
 
 // Smash HTML
 gulp.task('smash-html', function() {
@@ -44,7 +46,21 @@ gulp.task('smash-css', function() {
     .pipe(gulp.dest('app/css/'));
 });
 
-// Smash images
+// Resize images
+gulp.task('resize-img', function () {
+  gulp.src('src/img/photos/photo*.jpg')
+    .pipe(imageResize({
+      width : 600,
+      height : 600,
+      crop : false,
+      upscale : false
+    }))
+    .pipe(rename(function (path) {
+      path.basename += "-min";
+    }))
+    .pipe(gulp.dest('src/img/photos/'));
+});
+// Smash img
 gulp.task('smash-img', function () {
   gulp.src('src/img/**/*')
     .pipe(image({
@@ -60,7 +76,7 @@ gulp.task('smash-img', function () {
       svgo: true,
       concurrent: 10
     }))
-    .pipe(gulp.dest('src/img/tmp/'));
+    .pipe(gulp.dest('app/img/'));
 });
 
 // Build
