@@ -14,7 +14,6 @@ var pngquant = require('imagemin-pngquant');
 var jpgoptim = require('imagemin-jpegoptim');
 var clean = require('gulp-clean');
 var imageResize = require('gulp-image-resize');
-var rename = require("gulp-rename");
 
 // Smash HTML
 gulp.task('smash-html', function() {
@@ -50,19 +49,16 @@ gulp.task('smash-css', function() {
 gulp.task('resize-img', function () {
   gulp.src('src/img/photos/photo*.jpg')
     .pipe(imageResize({
-      width : 600,
-      height : 600,
+      width : 1000,
+      height : 1000,
       crop : false,
       upscale : false
-    }))
-    .pipe(rename(function (path) {
-      path.basename += "-min";
     }))
     .pipe(gulp.dest('src/img/photos/'));
 });
 // Smash img
 gulp.task('smash-img', function () {
-  gulp.src('src/img/**/*')
+  gulp.src('src/img/**/**/*')
     .pipe(image({
       pngquant: true,
       optipng: false,
@@ -80,4 +76,4 @@ gulp.task('smash-img', function () {
 });
 
 // Build
-gulp.task('default', gulpsequence('smash-html', 'smash-js', 'smash-css', 'smash-img'));
+gulp.task('default', gulpsequence('smash-html', 'smash-js', 'smash-css', 'resize-img', 'smash-img'));
