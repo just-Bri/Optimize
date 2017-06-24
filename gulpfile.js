@@ -46,7 +46,7 @@ gulp.task('smash-css', function() {
 });
 
 // Resize images
-gulp.task('resize-img', function () {
+gulp.task('resize-photos', function () {
   gulp.src('src/img/photos/photo*.jpg')
     .pipe(imageResize({
       width : 1000,
@@ -56,6 +56,17 @@ gulp.task('resize-img', function () {
     }))
     .pipe(gulp.dest('src/img/photos/'));
 });
+gulp.task('resize-avatars', function () {
+  gulp.src('src/img/avatars/avatar*.jpg')
+    .pipe(imageResize({
+      width : 50,
+      height : 50,
+      crop : false,
+      upscale : false
+    }))
+    .pipe(gulp.dest('src/img/avatars/'));
+});
+
 // Smash img
 gulp.task('smash-img', function () {
   gulp.src('src/img/**/**/*')
@@ -76,4 +87,4 @@ gulp.task('smash-img', function () {
 });
 
 // Build
-gulp.task('default', gulpsequence('smash-html', 'smash-js', 'smash-css', 'resize-img', 'smash-img'));
+gulp.task('default', gulpsequence('smash-html', 'smash-js', 'smash-css', 'resize-photos', 'resize-avatars', 'smash-img'));
