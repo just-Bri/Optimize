@@ -34,8 +34,6 @@ gulp.task('smash-js', function (cb) {
     ],
     cb
   );
-  // return gulp.src('src/js/main.js', {read: false})
-  //       .pipe(clean());
 });
 
 // Smash Css
